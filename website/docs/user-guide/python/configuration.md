@@ -42,8 +42,11 @@ cfg = Config.from_uri("gfs://127.0.0.1:9200/data")
 | `GOOSEFS_MASTER_CONNECTION_POOL_SIZE` | Master gRPC channel pool size (default 1)     |
 | `GOOSEFS_MASTER_POOL_SCHEDULE`        | `roundrobin` / `p2c`                          |
 | `GOOSEFS_WORKER_CONNECTION_POOL_SIZE` | Per-worker gRPC channel pool size             |
-| `GOOSEFS_FILE_INFO_CACHE_TTL_MS`      | Client-side FileInfo cache TTL (0 = disabled) |
-| `GOOSEFS_FILE_INFO_CACHE_CAPACITY`    | FileInfo LRU cache capacity                   |
+| `GOOSEFS_METADATA_CACHE_ENABLED` | Enable client metadata cache (default off; Java-aligned) |
+| `GOOSEFS_METADATA_CACHE_MAX_SIZE` | Metadata cache LRU capacity (default `100000`) |
+| `GOOSEFS_METADATA_CACHE_EXPIRATION` | Metadata cache TTL (`10min`, `30s`, `2day`, …) |
+| `GOOSEFS_FILE_METADATA_SYNC_INTERVAL` | `0` skips cache on every get/list (default `-1`) |
+| `GOOSEFS_FILE_METADATA_LOAD_TYPE` | `ONCE` / `ALWAYS` / `NEVER` |
 
 ## Write / Read Types
 

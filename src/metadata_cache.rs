@@ -31,7 +31,7 @@ use tracing::debug;
 
 use crate::error::{Error, Result};
 use crate::metrics;
-use crate::proto::grpc::file::{FileBlockInfo, FileInfo, LoadMetadataPType};
+use crate::proto::grpc::file::{FileInfo, LoadMetadataPType};
 
 /// Result of a status-slot lookup.
 #[derive(Clone, Debug)]
@@ -472,6 +472,9 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    // Only the tests build a `FileInfo` from scratch, so importing this at
+    // module scope made every non-test build warn about it.
+    use crate::proto::grpc::file::FileBlockInfo;
     use std::sync::atomic::{AtomicUsize, Ordering};
 
     fn info_of_length(len: i64) -> FileInfo {

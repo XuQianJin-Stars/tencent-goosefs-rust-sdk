@@ -103,7 +103,9 @@ torn/stale data. Consider io.mode=pread for untrusted filesystems. fault_addr=0x
             // SA_SIGINFO so the handler receives `siginfo_t` (faulting addr).
             unsafe {
                 let mut action: libc::sigaction = std::mem::zeroed();
-                action.sa_sigaction = handle_sigbus as usize;
+                // Cast through `*const ()`: a direct fn-item-to-integer cast
+                // is what `function_casts_as_integer` warns about.
+                action.sa_sigaction = handle_sigbus as *const () as usize;
                 action.sa_flags = libc::SA_SIGINFO;
                 libc::sigemptyset(&mut action.sa_mask);
                 let rc = libc::sigaction(libc::SIGBUS, &action, std::ptr::null_mut());
